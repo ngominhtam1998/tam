@@ -19,7 +19,7 @@ namespace BanHang.Controllers
         public string ChuoiKetNoi = @"Data Source=HIEU-PC\SQLEXPRESS;Initial Catalog=BanHang;
         Integrated Security=True";
         private List<SanPham> DataSanPham = new List<SanPham>();
-        [Route("/")]
+       
         public IActionResult Index()
         {
             var sql = "select * from SanPham";
@@ -111,35 +111,54 @@ namespace BanHang.Controllers
         // SEACH//
         [HttpPost]
         public IActionResult Search(string Keyword)
-        {
-            var data = new List<SanPham>();
-            var sql = "select * from SanPham";
+        {   //LinQ
+            //var data = new List<SanPham>();
+            //var sql = "select * from SanPham";
 
-            foreach (DataRow hhrow in Sql.GetDataTable(sql).Rows)
-            {
-                DataSanPham.Add(new SanPham
-                {
-                    Masp = int.Parse($"{ hhrow["Masp"] }"),
-                    Tensp = $"{ hhrow["Tensp"] }",
-                    Dongia = int.Parse($"{ hhrow["Dongia"] }"),
-                    Soluong = int.Parse($"{ hhrow["Soluong"] }"),
-                    Hinh = $"{ hhrow["Hinh"] }",
-                });
-            }
+            //foreach (DataRow hhrow in Sql.GetDataTable(sql).Rows)
+            //{
+            //    DataSanPham.Add(new SanPham
+            //    {
+            //        Masp = int.Parse($"{ hhrow["Masp"] }"),
+            //        Tensp = $"{ hhrow["Tensp"] }",
+            //        Dongia = int.Parse($"{ hhrow["Dongia"] }"),
+            //        Soluong = int.Parse($"{ hhrow["Soluong"] }"),
+            //        Hinh = $"{ hhrow["Hinh"] }",
+            //    });
+            //}
+            //if (!string.IsNullOrEmpty(Keyword))
+            //{
+            //    data = DataSanPham.Where(hh => hh.Tensp.Contains(Keyword)).ToList();
+            //}
+
+            //var dsHangHoa = data.Select(hh => new SanPham
+            //{
+            //    Tensp = hh.Tensp,
+            //    Masp = hh.Masp,
+            //    Dongia = hh.Dongia,
+            //    Hinh = hh.Hinh
+            //});
+
+            //Query
             if (!string.IsNullOrEmpty(Keyword))
             {
-                data = DataSanPham.Where(hh => hh.Tensp.Contains(Keyword)).ToList();
+                string sql = $"select * from  SanPham where Tensp like N'%{Keyword}%'";
+
+                foreach (DataRow hhrow in Sql.GetDataTable(sql).Rows)
+                {
+                    DataSanPham.Add(new SanPham
+                    {
+                        Masp = int.Parse($"{ hhrow["Masp"] }"),
+                        Tensp = $"{ hhrow["Tensp"] }",
+                        Dongia = int.Parse($"{ hhrow["Dongia"] }"),
+                        Soluong = int.Parse($"{ hhrow["Soluong"] }"),
+                        Hinh = $"{ hhrow["Hinh"] }",
+                    });
+
+                }
+                return PartialView("PartialSanPhamSeach", DataSanPham);
             }
-
-            var dsHangHoa = data.Select(hh => new SanPham
-            {
-                Tensp = hh.Tensp,
-                Masp = hh.Masp,
-                Dongia = hh.Dongia,
-                Hinh = hh.Hinh
-            });
-
-            return PartialView("PartialSanPhamSeach", dsHangHoa);
+            return RedirectToAction("Index");
         }
 
     }

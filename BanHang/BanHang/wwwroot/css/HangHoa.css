@@ -1,9 +1,9 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap');
+﻿@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300&display=swap');
 
 html body {
     height: 100%;
     width: 100%;
-    font-family: 'Gamja Flower', cursive;
+    font-family: 'Noto Serif TC', serif;
     font-size: 24px;
 }
 

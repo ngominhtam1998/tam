@@ -17,7 +17,6 @@ namespace Bán_hàng.Areas.Admin.Models
         [Required(ErrorMessage = "chua nhap so luong")]
         public int Soluong { get; set; }
         [Display(Name = "Hình")]
-        [Required(ErrorMessage = "chua them  hinh anh")]
         public string Hinh { get; set; }
         [Display(Name = "Đơn giá")]
         [Required(ErrorMessage = "chua nhap don gia")]

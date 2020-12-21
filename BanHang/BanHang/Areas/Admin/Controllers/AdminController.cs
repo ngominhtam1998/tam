@@ -20,7 +20,7 @@ namespace Bán_hàng.Areas.Admin.Controllers
         public string ChuoiKetNoi = @"Data Source=HIEU-PC\SQLEXPRESS;Initial Catalog=BanHang;
         Integrated Security=True";
         private List<SanPham> DataSanPham = new List<SanPham>();
-      
+        [Route("/")]
         public IActionResult ViewLogin()
         {
             return View();
@@ -123,7 +123,7 @@ namespace Bán_hàng.Areas.Admin.Controllers
                     cmd.Connection.Close();
                 }
             }
-            return RedirectToAction("Index");
+            return View("ViewCreate");
         }
 
         // sua  san pham
