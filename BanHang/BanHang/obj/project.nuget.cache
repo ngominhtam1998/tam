@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "a2QfV8Pu1KSNiVcSjwPgSLCiD82Nqj25STGQToFrQWPcIWWV8oou9BafYM5IQCBUgRHZBHQ8dD4u346DXWG6/Q==",
+  "dgSpecHash": "JSd3zpQD28r14D09PypcE0CB0/MhgIeh/9LFmE+Oqcz4KxKHoiZXGzrawAs6VbishPHUcsclpUld2ikoiGNWZA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\hieu\\Desktop\\bai hoc\\BanHang\\BanHang\\BanHang.csproj",
+  "projectFilePath": "C:\\Users\\hieu\\Desktop\\Git\\BanHang\\BanHang\\BanHang.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\hieu\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\hieu\\.nuget\\packages\\microsoft.aspnetcore.mvc.razor.extensions\\3.1.9\\microsoft.aspnetcore.mvc.razor.extensions.3.1.9.nupkg.sha512",

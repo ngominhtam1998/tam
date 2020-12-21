@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\hieu\\Desktop\\bai hoc\\BanHang\\BanHang\\BanHang.csproj": {}
+    "C:\\Users\\hieu\\Desktop\\Git\\BanHang\\BanHang\\BanHang.csproj": {}
   },
   "projects": {
-    "C:\\Users\\hieu\\Desktop\\bai hoc\\BanHang\\BanHang\\BanHang.csproj": {
+    "C:\\Users\\hieu\\Desktop\\Git\\BanHang\\BanHang\\BanHang.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\hieu\\Desktop\\bai hoc\\BanHang\\BanHang\\BanHang.csproj",
+        "projectUniqueName": "C:\\Users\\hieu\\Desktop\\Git\\BanHang\\BanHang\\BanHang.csproj",
         "projectName": "BanHang",
-        "projectPath": "C:\\Users\\hieu\\Desktop\\bai hoc\\BanHang\\BanHang\\BanHang.csproj",
+        "projectPath": "C:\\Users\\hieu\\Desktop\\Git\\BanHang\\BanHang\\BanHang.csproj",
         "packagesPath": "C:\\Users\\hieu\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\hieu\\Desktop\\bai hoc\\BanHang\\BanHang\\obj\\",
+        "outputPath": "C:\\Users\\hieu\\Desktop\\Git\\BanHang\\BanHang\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\hieu\\AppData\\Roaming\\NuGet\\NuGet.Config",

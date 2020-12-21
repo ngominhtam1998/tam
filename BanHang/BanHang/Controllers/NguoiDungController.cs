@@ -112,6 +112,7 @@ namespace BanHang.Controllers
         [HttpPost]
         public IActionResult Search(string Keyword)
         {
+            var data = new List<SanPham>();
             var sql = "select * from SanPham";
 
             foreach (DataRow hhrow in Sql.GetDataTable(sql).Rows)
@@ -131,7 +132,7 @@ namespace BanHang.Controllers
                var data = DataSanPham.Where(hh => hh.Tensp.Contains(Keyword));
             }
 
-            var dsHangHoa = DataSanPham.Select(hh => new SanPham
+            var dsHangHoa = data.Select(hh => new SanPham
             {
                 Tensp = hh.Tensp,
                 Masp = hh.Masp,
