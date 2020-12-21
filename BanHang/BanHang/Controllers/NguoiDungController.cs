@@ -125,11 +125,10 @@ namespace BanHang.Controllers
                     Soluong = int.Parse($"{ hhrow["Soluong"] }"),
                     Hinh = $"{ hhrow["Hinh"] }",
                 });
-
             }
             if (!string.IsNullOrEmpty(Keyword))
             {
-               var data = DataSanPham.Where(hh => hh.Tensp.Contains(Keyword));
+                data = DataSanPham.Where(hh => hh.Tensp.Contains(Keyword)).ToList();
             }
 
             var dsHangHoa = data.Select(hh => new SanPham
