@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Bán_hàng.Areas.Admin.Models.SanPham>
+
+@{
+    ViewData["Title"] = "Trang chu";
+    Layout = "~/Views/Shared/_NguoiDungLayout.cshtml";
+}
+
+<h1 class="text-center text-success">Giỏ hàng của bạn</h1>
+<form>
+    <div class="container-fluid abc">
+        <div class="row abc">
+            @foreach (var item in Model)
+            {
+                <div class="col-sm-3 col-md-3">
+                    <div class="card">
+                        <img class="card-img-top" src="~/ADMIN/Images/@item.Hinh" />
+                        <div class="card-body">
+                            <h3 class="card-title">@item.Tensp</h3>
+                            <p class="card-text">@item.Dongia đ</p>                          
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <button asp-action="ViewBuy"  class="btn btn-success btn-block my-5">Đặt hàng</button>
+    </div>
+</form>
+

@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Bán_hàng.Areas.Admin.Models.SanPham>
+
+<form>
+    <div class="container-fluid abc">
+        <div class="row abc">
+            @foreach (var item in Model)
+            {
+                <div class="col-sm-3 col-md-3">
+                    <div class="card">
+                        <img class="card-img-top" src="~/ADMIN/Images/@item.Hinh" />
+                        <div class="card-body">
+                            <h3 class="card-title">@item.Tensp</h3>
+                            <p class="card-text">@item.Dongia đ</p>
+                            <button asp-action="ViewBuy" class="btn btn-success btn-block">Mua ngay</button>
+                            <button asp-action="Items" asp-route-ID="@item.Masp" class="btn btn-secondary btn-block">Thêm vào giỏ hàng</button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</form>

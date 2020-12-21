@@ -1,0 +1,184 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap');
+
+html body {
+    height: 100%;
+    width: 100%;
+    font-family: 'Gamja Flower', cursive;
+    font-size: 24px;
+}
+
+.navbar {
+    background-color: rgba(243, 210, 119, 0.6) !important;
+}
+
+.navbar-brand {
+    background-color: rgba(243, 210, 119, 0.0);
+    border: 0px;
+}
+
+.navbar li a:hover {
+    font-weight: 700;
+    color: orangered !important
+}
+
+.navbar li .fa-shopping-basket:hover {
+    font-weight: 700;
+    color: orangered !important
+}
+
+.navbar li .fa-shopping-basket {
+    background-color: rgba(243, 210, 119, 0.0);
+    border: 0px;
+    border-radius: 20%;
+}
+
+body p {
+    font-size: 20px;
+}
+
+#imgCarousel img {
+    width: 100%;
+}
+
+.btn-light {
+    background-color: rgba(243, 210, 119, 0.8);
+    color: white;
+}
+
+    .btn-light:hover {
+        background-color: rgba(243, 210, 119, 1);
+        color: rgb(16, 4, 4);
+        border: 1px solid white;
+    }
+
+.carousel-caption {
+    position: absolute;
+}
+
+    .carousel-caption h1 {
+        color: darkorange;
+        text-transform: uppercase;
+        text-shadow: 5px 5px 1px Black;
+    }
+
+    .carousel-caption h3 {
+        color: purple;
+        text-shadow: 1px 1px 1px Black;
+    }
+
+@media only screen and (max-width: 1920px) {
+    .carousel-caption {
+        top: 10%;
+    }
+
+        .carousel-caption h1 {
+            font-size: 400%;
+        }
+
+        .carousel-caption h3 {
+            font-size: 200%;
+        }
+}
+
+@media only screen and (max-width: 992px) {
+    .carousel-caption {
+        top: 8%;
+    }
+
+        .carousel-caption h1 {
+            font-size: 300%;
+            text-shadow: 3px 3px 1px Black;
+        }
+
+        .carousel-caption h3 {
+            font-size: 150%;
+        }
+
+    body p {
+        font-size: 18px;
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    .carousel-caption {
+        top: 5%;
+    }
+
+        .carousel-caption h1 {
+            font-size: 200%;
+            text-shadow: 2px 2px 1px Black;
+        }
+
+        .carousel-caption h3 {
+            font-size: 120%;
+        }
+
+    .btn-outline-light, .btn-light {
+        padding: 5px;
+        font-size: 13px;
+        width: 60px;
+        height: 30px;
+    }
+
+    body p {
+        font-size: 14px;
+    }
+
+    footer hr, p, h5 {
+        margin: 5px;
+    }
+}
+
+.jumbotron {
+    padding: 20px;
+    border-radius: 0px;
+}
+
+.abc1 hr {
+    border-top: 2px dashed rgb(255, 150, 119);
+    width: 95%;
+    margin-bottom: 2rem;
+}
+
+.fa-react, .fa-angular, .fa-html5, .fa-css3 {
+    font-size: 3em;
+}
+
+.fun {
+    border: 0px;
+}
+
+.abc2 a {
+    font-size: 2em;
+    margin: 0 0.5em;
+}
+
+.fa-facebook {
+    color: darkblue;
+}
+
+.fa-google-plus-g {
+    color: orangered;
+}
+
+.fa-instagram {
+    color: #517fa4;
+}
+
+.fa-youtube {
+    color: red;
+}
+
+footer {
+    padding-top: 20px;
+    background-color: rgba(27, 26, 26, 0.7);
+    color: white;
+}
+
+.light-100 {
+    border-top: 2px solid white;
+}
+
+.card-img-top {
+    padding-top: 20px;
+}

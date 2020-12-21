@@ -1,0 +1,47 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="lib/jquery/dist/jquery.js"></script>
+    <link href="lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <script src="lib/bootstrap/dist/js/bootstrap.js"></script>
+    <link href="~/ADMIN/LoginAdmin/css/StyleSheet.css" rel="stylesheet" />
+    <script src="~/ADMIN/LoginAdmin/js/index.js"></script>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-4 col-lg-3 col-sm-6 col-6 abc">
+                <form onsubmit="return false" class="form-group">
+                    <h1>Login with your infomation</h1>
+                    <div class="form-group">
+                        <label for="AdminName">Admin name</label>
+                        <input type="text" class="form-control" id="input1" placeholder="Enter Admin name" />
+                        <p class="erorrAdminName"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="input2" placeholder="Enter password" />
+                        <p class="erorrPassword"></p>
+                    </div>
+                    <div class="form-check" style="margin-bottom:10px">
+                        <input type="checkbox" class="form-check-input" />
+                        <label class="form-check-label">Check me out</label>
+                    </div>
+                    <button id="BtnLogin" class="btn btn-success btn-block">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+     
+    </script>
+</body>
+</html>

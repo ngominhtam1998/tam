@@ -1,0 +1,71 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300&display=swap');
+
+body {
+    width: 100%;
+    height: 100%;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 16px;
+    font-weight: bold;
+    background: url('../anh/hinh-nen-hd-0-2.jpg') no-repeat;
+    background-size: cover;
+}
+
+.abc {
+    border: 3px solid lightblue;
+    border-radius: 15px;
+    margin-top: 15vh;
+    -webkit-box-shadow: 20px 0px 50px 0px lightblue;
+}
+
+    .abc form {
+        padding-bottom: 20px;
+        padding-top: 10px;
+    }
+
+    .abc h1 {
+        color: deepskyblue;
+        text-shadow: 3px 3px 1px black;
+    }
+
+    .abc label {
+        color: lightblue;
+        text-shadow: 3px 3px 1px black;
+    }
+
+.btn-success {
+    background-color: dodgerblue;
+}
+
+
+.btn-success:hover {
+    background-color: slateblue;
+}
+@media screen and (max-width: 576px) {
+    .abc h1 {
+        font-size: 20px;
+    }
+
+    .abc h1, label, input, .form-group {
+        margin: 0px;
+    }
+
+    .abc label {
+        font-size: 12px;
+        text-shadow: 2px 2px 1px black;
+    }
+
+    .abc form {
+        padding-bottom: 20px;
+        padding-top: 10px;
+    }
+
+    .abc h1 {
+        color: lawngreen;
+        text-shadow: 2px 2px 1px black;
+    }
+}
+/*canh bao nhap sai*/
+.erorrPassword, .erorrAdminName {
+    color: red;
+    font-size: 14px;
+}
