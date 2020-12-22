@@ -19,27 +19,73 @@ namespace BanHang.Controllers
         public string ChuoiKetNoi = @"Data Source=HIEU-PC\SQLEXPRESS;Initial Catalog=BanHang;
         Integrated Security=True";
         private List<SanPham> DataSanPham = new List<SanPham>();
-       
+        [Route("/")]
         public IActionResult Index()
         {
+
             var sql = "select * from SanPham";
 
-            foreach (DataRow hhrow in Sql.GetDataTable(sql).Rows)
-            {
-                DataSanPham.Add(new SanPham
-                {
-                    Masp = int.Parse($"{ hhrow["Masp"] }"),
-                    Tensp = $"{ hhrow["Tensp"] }",
-                    Dongia = int.Parse($"{ hhrow["Dongia"] }"),
-                    Soluong = int.Parse($"{ hhrow["Soluong"] }"),
-                    Hinh = $"{ hhrow["Hinh"] }",
-                });
+            //if (Sql.GetDataTable(sql).Rows.Count > 0)
+            //{
+            //    for (int i = 0; i < 4; i++)
+            //    {
+            //        DataSanPham.Add(new SanPham
+            //        {
+            //            Tensp = $"{ Sql.GetDataTable(sql).Rows[i]["Tensp"] }",
+            //            Dongia = int.Parse($"{ Sql.GetDataTable(sql).Rows[i]["Dongia"] }"),
+            //            Hinh = $"{Sql.GetDataTable(sql).Rows[i]["Hinh"] }",
+            //            Soluong = int.Parse($"{ Sql.GetDataTable(sql).Rows[i]["SoLuong"] }")
+            //        });
+            //    }
 
-            }
+            //}
+            ViewBag.TongSoTrang = Math.Ceiling(1.0*Sql.GetDataTable(sql).Rows.Count / 4);
             return View(DataSanPham);
         }
+
+        // TaiThem
+        [HttpPost]
+        public IActionResult LoadMore(int page)
+        {
+            var sql = "select * from SanPham";
+            try
+            {
+                if (Sql.GetDataTable(sql).Rows.Count > 0)
+                {
+                    for (int i = (page - 1) * 4; i < page * 4; i++)
+                    {
+                        DataSanPham.Add(new SanPham
+                        {
+                            Tensp = $"{ Sql.GetDataTable(sql).Rows[i]["Tensp"] }",
+                            Dongia = int.Parse($"{ Sql.GetDataTable(sql).Rows[i]["Dongia"] }"),
+                            Hinh = $"{Sql.GetDataTable(sql).Rows[i]["Hinh"] }",
+                            Soluong = int.Parse($"{ Sql.GetDataTable(sql).Rows[i]["SoLuong"] }")
+                        });
+                    }
+
+                }
+            }
+            catch (Exception)
+            {
+                if (Sql.GetDataTable(sql).Rows.Count > 0)
+                {
+                    for (int i = (page - 1) * 4; i < Sql.GetDataTable(sql).Rows.Count; i++)
+                    {
+                        DataSanPham.Add(new SanPham
+                        {
+                            Tensp = $"{ Sql.GetDataTable(sql).Rows[i]["Tensp"] }",
+                            Dongia = int.Parse($"{ Sql.GetDataTable(sql).Rows[i]["Dongia"] }"),
+                            Hinh = $"{Sql.GetDataTable(sql).Rows[i]["Hinh"] }",
+                            Soluong = int.Parse($"{ Sql.GetDataTable(sql).Rows[i]["SoLuong"] }")
+                        });
+                    }
+
+                }
+            }
+         
+            return PartialView("PartialSanPhamSeach", DataSanPham);
+        }
         //  gio hang 
-        const int count = 1;
         public IActionResult Items(int ID)
         {
             HttpContext.Session.SetInt32($"{ID}", ID);
@@ -148,7 +194,7 @@ namespace BanHang.Controllers
                 {
                     DataSanPham.Add(new SanPham
                     {
-                        Masp = int.Parse($"{ hhrow["Masp"] }"),
+                      
                         Tensp = $"{ hhrow["Tensp"] }",
                         Dongia = int.Parse($"{ hhrow["Dongia"] }"),
                         Soluong = int.Parse($"{ hhrow["Soluong"] }"),
@@ -160,7 +206,6 @@ namespace BanHang.Controllers
             }
             return RedirectToAction("Index");
         }
-
     }
 }
 
