@@ -67,9 +67,10 @@ namespace BanHang.Controllers
             }
             catch (Exception)
             {
+                DataSanPham.Clear();
                 if (Sql.GetDataTable(sql).Rows.Count > 0)
                 {
-                    for (int i = (page - 1) * 4; i < Sql.GetDataTable(sql).Rows.Count; i++)
+                    for (int i = (page - 1) * 4; i < 11; i++)
                     {
                         DataSanPham.Add(new SanPham
                         {
@@ -82,7 +83,7 @@ namespace BanHang.Controllers
 
                 }
             }
-         
+
             return PartialView("PartialSanPhamSeach", DataSanPham);
         }
         //  gio hang 
