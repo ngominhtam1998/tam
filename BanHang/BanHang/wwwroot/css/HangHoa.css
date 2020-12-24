@@ -21,12 +21,12 @@ html body {
     color: orangered !important
 }
 
-.navbar li .fa-shopping-basket:hover {
+.navbar li button:hover {
     font-weight: 700;
     color: orangered !important
 }
 
-.navbar li .fa-shopping-basket {
+.navbar li button {
     background-color: rgba(243, 210, 119, 0.0);
     border: 0px;
     border-radius: 20%;

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Bán_hàng.Areas.Admin.Models;
+using BanHang.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -20,7 +21,7 @@ namespace Bán_hàng.Areas.Admin.Controllers
         public string ChuoiKetNoi = @"Data Source=HIEU-PC\SQLEXPRESS;Initial Catalog=BanHang;
         Integrated Security=True";
         private List<SanPham> DataSanPham = new List<SanPham>();
-        
+        [Route("/")]
         public IActionResult ViewLogin()
         {
             return View();
@@ -193,6 +194,26 @@ namespace Bán_hàng.Areas.Admin.Controllers
             cmd.Connection.Close();
 
             return RedirectToAction("Index");
+        }
+
+        //Don dat hang
+        public IActionResult ViewDonDatHang()
+        {
+            List<DonDatHang> donDatHang = new List<DonDatHang>();
+            var sql = "select * from HoaDon";
+
+            foreach (DataRow hhrow in Sql.GetDataTable(sql).Rows)
+            {
+                donDatHang.Add(new DonDatHang
+                {
+                    MaKH = int.Parse($"{ hhrow["MaKH"] }"),
+                    TenKH = $"{ hhrow["TenKH"] }",
+                    DiaChi = $"{ hhrow["DiaChi"] }",
+                    SDT = int.Parse($"{ hhrow["SDT"] }"),
+                    NgayDatHang = $"{hhrow["NgayDatHang"] }",
+                });
+            }
+            return View(donDatHang);
         }
     }
 }
