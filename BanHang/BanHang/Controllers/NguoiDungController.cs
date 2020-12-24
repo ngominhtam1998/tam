@@ -39,7 +39,7 @@ namespace BanHang.Controllers
             //    }
 
             //}
-            ViewBag.TongSoTrang = Math.Ceiling(1.0*Sql.GetDataTable(sql).Rows.Count / 4);
+            ViewBag.TongSoTrang = Math.Ceiling(1.0 * Sql.GetDataTable(sql).Rows.Count / 4);
             return View(DataSanPham);
         }
 
@@ -48,29 +48,26 @@ namespace BanHang.Controllers
         public IActionResult LoadMore(int page)
         {
             var sql = "select * from SanPham";
-            try
+
+            if (Sql.GetDataTable(sql).Rows.Count > 0)
             {
-                if (Sql.GetDataTable(sql).Rows.Count > 0)
+                if ((page * 4) <= Sql.GetDataTable(sql).Rows.Count)
                 {
                     for (int i = (page - 1) * 4; i < page * 4; i++)
                     {
                         DataSanPham.Add(new SanPham
                         {
+                            Masp= int.Parse($"{ Sql.GetDataTable(sql).Rows[i]["Masp"] }"),
                             Tensp = $"{ Sql.GetDataTable(sql).Rows[i]["Tensp"] }",
                             Dongia = int.Parse($"{ Sql.GetDataTable(sql).Rows[i]["Dongia"] }"),
                             Hinh = $"{Sql.GetDataTable(sql).Rows[i]["Hinh"] }",
                             Soluong = int.Parse($"{ Sql.GetDataTable(sql).Rows[i]["SoLuong"] }")
                         });
                     }
-
                 }
-            }
-            catch (Exception)
-            {
-                DataSanPham.Clear();
-                if (Sql.GetDataTable(sql).Rows.Count > 0)
+                else
                 {
-                    for (int i = (page - 1) * 4; i < 11; i++)
+                    for (int i = (page - 1) * 4; i < Sql.GetDataTable(sql).Rows.Count; i++)
                     {
                         DataSanPham.Add(new SanPham
                         {
@@ -80,8 +77,8 @@ namespace BanHang.Controllers
                             Soluong = int.Parse($"{ Sql.GetDataTable(sql).Rows[i]["SoLuong"] }")
                         });
                     }
-
                 }
+
             }
 
             return PartialView("PartialSanPhamSeach", DataSanPham);
@@ -136,7 +133,7 @@ namespace BanHang.Controllers
                 }
             }
             ViewBag.TongTien = TongTien;
-            HttpContext.Session.SetInt32("TongTien", TongTien);
+            TempData["TongTien"] = ViewBag.TongTien;
             return View();
         }
         //////Them khach hang///
@@ -144,14 +141,30 @@ namespace BanHang.Controllers
         {
             if (ModelState.IsValid)
             {
-                string Sql = $"insert into KhachHang(TenKH,SDT,Email) values('{KH.TenKH}','{KH.SDT}','{KH.Email}')";
+                string _Sql = $"insert into KhachHang(TenKH,DiaChi,SDT,Email) values('{KH.TenKH}','{KH.DiaChi}','{KH.SDT}','{KH.Email}')";
                 SqlConnection Connect = new SqlConnection(ChuoiKetNoi);
-                SqlCommand cmd = new SqlCommand(Sql, Connect);
+                SqlCommand cmd = new SqlCommand(_Sql, Connect);
                 cmd.Connection.Open();
                 cmd.ExecuteNonQuery();
                 cmd.Connection.Close();
+                //ADD HoaDon
+                var Sql1 = $"select MaKH from KhachHang where TenKH = '{KH.TenKH}'";
+                var MaKH = int.Parse($"{ Sql.GetDataTable(Sql1).Rows[0]["MaKH"] }");
+                var NgayDatHang = DateTime.Now.ToString();
+                string Sql2 = $"insert into HoaDon(MaKH,TenKH,DiaChi,SDT,NgayDatHang) values('{MaKH}','{KH.TenKH}','{KH.DiaChi}','{KH.SDT}','{NgayDatHang}')";
+                SqlConnection Connect2 = new SqlConnection(ChuoiKetNoi);
+                SqlCommand cmd2 = new SqlCommand(Sql2, Connect2);
+                cmd2.Connection.Open();
+                cmd2.ExecuteNonQuery();
+                cmd2.Connection.Close();
                 ViewBag.Success = "Dat hang thanh cong!";
-                ViewBag.TongTien = HttpContext.Session.GetInt32("TongTien");
+                ViewBag.TongTien = TempData["TongTien"];
+                List<string> _lstSessionId = HttpContext.Session.Keys.ToList();
+                foreach (string _sId in _lstSessionId)
+                {
+                    int? ID = Convert.ToInt32($"{_sId}");
+                    
+                }
             }
             return View("ViewBuy");
         }
@@ -195,7 +208,7 @@ namespace BanHang.Controllers
                 {
                     DataSanPham.Add(new SanPham
                     {
-                      
+
                         Tensp = $"{ hhrow["Tensp"] }",
                         Dongia = int.Parse($"{ hhrow["Dongia"] }"),
                         Soluong = int.Parse($"{ hhrow["Soluong"] }"),
