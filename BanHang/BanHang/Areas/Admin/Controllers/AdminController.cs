@@ -206,6 +206,7 @@ namespace Bán_hàng.Areas.Admin.Controllers
             {
                 donDatHang.Add(new DonDatHang
                 {
+                    MaHD = int.Parse($"{ hhrow["MaHD"] }"),
                     MaKH = int.Parse($"{ hhrow["MaKH"] }"),
                     TenKH = $"{ hhrow["TenKH"] }",
                     DiaChi = $"{ hhrow["DiaChi"] }",
@@ -214,6 +215,47 @@ namespace Bán_hàng.Areas.Admin.Controllers
                 });
             }
             return View(donDatHang);
+        }
+        //Doanh thu
+        public IActionResult ViewDoanhThu()
+        {
+            return View();
+        }
+
+        public IActionResult DoanhThu(int ID)
+        {
+            //ADD Doanh Thu
+            var _Sql = $"select * from HoaDonCT where MaHD = {ID}";
+            foreach (DataRow hhrow in Sql.GetDataTable(_Sql).Rows)
+            {
+                if (Sql.GetDataTable(_Sql).Rows.Count > 0)
+                {
+                    var Masp = int.Parse($"{ hhrow["MaSP"] }");
+                    var Dongia = int.Parse($"{ hhrow["DonGia"] }");
+                    var Sql2 = $"insert into DoanhThu(MaSP,SoLuong,DonGia) values('{Masp}',1,'{Dongia}')";
+                    SqlConnection Connect2 = new SqlConnection(ChuoiKetNoi);
+                    SqlCommand cmd2 = new SqlCommand(Sql2, Connect2);
+                    cmd2.Connection.Open();
+                    cmd2.ExecuteNonQuery();
+                    cmd2.Connection.Close();
+                }             
+            }
+            // Xoa HDCT
+            var Sql4 = $"delete from HoaDonCT where MaHD = {ID}";
+            SqlConnection Connect4 = new SqlConnection(ChuoiKetNoi);
+            SqlCommand cmd4 = new SqlCommand(Sql4, Connect4);
+            cmd4.Connection.Open();
+            cmd4.ExecuteNonQuery();
+            cmd4.Connection.Close();
+            //Xoa Hoa Don 
+            var Sql3 = $"delete from HoaDon where MaHD = {ID}";
+            SqlConnection Connect3 = new SqlConnection(ChuoiKetNoi);
+            SqlCommand cmd3 = new SqlCommand(Sql3, Connect3);
+            cmd3.Connection.Open();
+            cmd3.ExecuteNonQuery();
+            cmd3.Connection.Close();
+            return RedirectToAction("ViewDonDatHang");
+
         }
     }
 }

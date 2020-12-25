@@ -8,6 +8,7 @@ namespace BanHang.ViewModels
 {
     public class DonDatHang
     {
+        public int MaHD { get; set; }
         [Display(Name ="Mã khách hàng")]
         public int MaKH { get; set; }
         [Display(Name = "Tên khách hàng")]

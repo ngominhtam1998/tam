@@ -44,6 +44,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.NgayDatHang)
             </td>
+            <td>
+                <form>
+                    <button class="btn btn-success" asp-action="DoanhThu" asp-route-ID="@item.MaHD">Đã thanh toán</button>
+                </form>
+            </td>
         </tr>
 }
     </tbody>

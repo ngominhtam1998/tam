@@ -1196,7 +1196,6 @@ C:\Users\hieu\Desktop\Git\BanHang\BanHang\bin\Debug\netcoreapp3.1\runtimes\win-x
 C:\Users\hieu\Desktop\Git\BanHang\BanHang\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
 C:\Users\hieu\Desktop\Git\BanHang\BanHang\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\hieu\Desktop\Git\BanHang\BanHang\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
-C:\Users\hieu\Desktop\Git\BanHang\BanHang\obj\Debug\netcoreapp3.1\BanHang.csprojAssemblyReference.cache
 C:\Users\hieu\Desktop\Git\BanHang\BanHang\obj\Debug\netcoreapp3.1\BanHang.AssemblyInfoInputs.cache
 C:\Users\hieu\Desktop\Git\BanHang\BanHang\obj\Debug\netcoreapp3.1\BanHang.AssemblyInfo.cs
 C:\Users\hieu\Desktop\Git\BanHang\BanHang\obj\Debug\netcoreapp3.1\BanHang.csproj.CoreCompileInputs.cache
@@ -1234,3 +1233,5 @@ C:\Users\hieu\Desktop\Git\BanHang\BanHang\obj\Debug\netcoreapp3.1\BanHang.dll
 C:\Users\hieu\Desktop\Git\BanHang\BanHang\obj\Debug\netcoreapp3.1\BanHang.pdb
 C:\Users\hieu\Desktop\Git\BanHang\BanHang\obj\Debug\netcoreapp3.1\BanHang.genruntimeconfig.cache
 C:\Users\hieu\Desktop\Git\BanHang\BanHang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Admin\ViewDonDatHang.cshtml.g.cs
+C:\Users\hieu\Desktop\Git\BanHang\BanHang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Admin\ViewDoanhThu.cshtml.g.cs
+C:\Users\hieu\Desktop\Git\BanHang\BanHang\obj\Debug\netcoreapp3.1\BanHang.csprojAssemblyReference.cache

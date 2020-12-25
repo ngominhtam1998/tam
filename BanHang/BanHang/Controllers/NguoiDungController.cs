@@ -19,7 +19,7 @@ namespace BanHang.Controllers
         public string ChuoiKetNoi = @"Data Source=HIEU-PC\SQLEXPRESS;Initial Catalog=BanHang;
         Integrated Security=True";
         private List<SanPham> DataSanPham = new List<SanPham>();
-     
+        
         public IActionResult Index()
         {
 
@@ -57,7 +57,7 @@ namespace BanHang.Controllers
                     {
                         DataSanPham.Add(new SanPham
                         {
-                            Masp= int.Parse($"{ Sql.GetDataTable(sql).Rows[i]["Masp"] }"),
+                            Masp = int.Parse($"{ Sql.GetDataTable(sql).Rows[i]["Masp"] }"),
                             Tensp = $"{ Sql.GetDataTable(sql).Rows[i]["Tensp"] }",
                             Dongia = int.Parse($"{ Sql.GetDataTable(sql).Rows[i]["Dongia"] }"),
                             Hinh = $"{Sql.GetDataTable(sql).Rows[i]["Hinh"] }",
@@ -151,20 +151,32 @@ namespace BanHang.Controllers
                 var Sql1 = $"select MaKH from KhachHang where TenKH = '{KH.TenKH}'";
                 var MaKH = int.Parse($"{ Sql.GetDataTable(Sql1).Rows[0]["MaKH"] }");
                 var NgayDatHang = DateTime.Now.ToString();
-                string Sql2 = $"insert into HoaDon(MaKH,TenKH,DiaChi,SDT,NgayDatHang) values('{MaKH}','{KH.TenKH}','{KH.DiaChi}','{KH.SDT}','{NgayDatHang}')";
-                SqlConnection Connect2 = new SqlConnection(ChuoiKetNoi);
-                SqlCommand cmd2 = new SqlCommand(Sql2, Connect2);
+                string Sql2 = $"insert into HoaDon(MaKH,TenKH,DiaChi,SDT,NgayDatHang) values('{MaKH}','{KH.TenKH}','{KH.DiaChi}','{KH.SDT}','{NgayDatHang}')";          
+                SqlCommand cmd2 = new SqlCommand(Sql2, Connect);
                 cmd2.Connection.Open();
                 cmd2.ExecuteNonQuery();
                 cmd2.Connection.Close();
                 ViewBag.Success = "Dat hang thanh cong!";
                 ViewBag.TongTien = TempData["TongTien"];
+                //ADD HoaDonCT
+                string Sql3 = $"select MaHD from HoaDon where MaKH = {MaKH}";
+                var MaHD = int.Parse($"{ Sql.GetDataTable(Sql3).Rows[0]["MaHD"] }");
                 List<string> _lstSessionId = HttpContext.Session.Keys.ToList();
                 foreach (string _sId in _lstSessionId)
                 {
                     int? ID = Convert.ToInt32($"{_sId}");
-                    
+                    if (ID != null)
+                    {
+                        var Sql4 = $"select DonGia from SanPham where Masp = {ID}";
+                        var DonGia = int.Parse($"{ Sql.GetDataTable(Sql4).Rows[0]["DonGia"] }");
+                        var Sql5 = $"insert into HoaDonCT(MaSP,MaHD,SoLuong,DonGia) values('{ID}','{MaHD}',1,'{DonGia}')";
+                        SqlCommand cmd5 = new SqlCommand(Sql5, Connect);
+                        cmd5.Connection.Open();
+                        cmd5.ExecuteNonQuery();
+                        cmd5.Connection.Close();
+                    }
                 }
+
             }
             return View("ViewBuy");
         }
