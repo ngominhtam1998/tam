@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Bán_hàng.Areas.Admin.Models.SanPham>
+﻿@model IEnumerable<BanHang.Models.SessionShoping>
 
 @{
     ViewData["Title"] = "Trang chu";
@@ -16,7 +16,8 @@
                         <img class="card-img-top" src="~/ADMIN/Images/@item.Hinh" />
                         <div class="card-body">
                             <h3 class="card-title">@item.Tensp</h3>
-                            <p class="card-text">@item.Dongia đ</p>                          
+                            <p class="card-text">@item.Dongia đ</p>
+                            <p class="card-text">@item.Soluong</p>
                         </div>
                     </div>
                 </div>

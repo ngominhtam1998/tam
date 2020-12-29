@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Bán_hàng.Areas.Admin.Models;
 using BanHang.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -26,8 +28,7 @@ namespace Bán_hàng.Areas.Admin.Controllers
         {
             return View();
         }
-
-        [HttpGet]
+      
         public ReponsResult Login(string a, string b)
         {
             if ((a != null) && (b != null))
@@ -219,7 +220,21 @@ namespace Bán_hàng.Areas.Admin.Controllers
         //Doanh thu
         public IActionResult ViewDoanhThu()
         {
-            return View();
+            var doanhthu = new List<DoanhThu>();
+            string sql = "select masp, dongia,soluong  from doanhthu";
+            foreach(DataRow hhrow in Sql.GetDataTable(sql).Rows)
+            {
+                string sql2 = $"select tensp from sanpham where masp = '{hhrow["Masp"]}'";
+                string tensp = $"{Sql.GetDataTable(sql2).Rows[0]["Tensp"]}";
+                doanhthu.Add(new DoanhThu
+                {
+                    Tensp = tensp,
+                    Dongia = int.Parse($"{hhrow["dongia"]}"),
+                    Soluong = int.Parse($"{hhrow["soluong"]}"),
+                    TongTien = int.Parse($"{hhrow["dongia"]}")*int.Parse($"{hhrow["soluong"]}")
+                });
+            }
+            return View(doanhthu);
         }
 
         public IActionResult DoanhThu(int ID)

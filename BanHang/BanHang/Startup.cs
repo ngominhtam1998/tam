@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -39,6 +40,10 @@ namespace BanHang
                 cfg.Cookie.Name = "Session_Admin";
                 cfg.IdleTimeout = new TimeSpan(0, 60, 0);
             });
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(option =>
+            {
+                option.LoginPath = "/Admin/Admin/ViewLogin";
+            });
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -57,11 +62,12 @@ namespace BanHang
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseAuthentication();
+            app.UseSession();
 
             app.UseAuthorization();
 
-            app.UseSession();
-
+         
             app.UseEndpoints(endpoints =>
             {
 

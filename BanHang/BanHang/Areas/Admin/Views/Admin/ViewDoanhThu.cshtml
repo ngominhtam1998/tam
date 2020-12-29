@@ -1,7 +1,14 @@
-﻿
+﻿@model IEnumerable<BanHang.ViewModels.DoanhThu>
+
 @{
     ViewData["Title"] = "ViewDoanhThu";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+@{
+    var dssp = Model.Select(p => p.Tensp).ToList();
+    var dsspString = string.Join("\", \"", dssp);
+    var doanhthuString = string.Join(", ", Model.Select(p => p.TongTien).ToList());
+
 }
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 <canvas id="pie-chart" width="800" height="450"></canvas>
@@ -10,11 +17,11 @@
     new Chart(document.getElementById("pie-chart"), {
         type: 'pie',
         data: {
-            labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
+            labels: ["@Html.Raw(dsspString)"],
             datasets: [{
                 label: "Population (millions)",
                 backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
-                data: [2478, 5267, 734, 784, 433]
+                data: [@doanhthuString]
             }]
         },
         options: {
