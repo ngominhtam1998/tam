@@ -13,23 +13,27 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Security.Claims;
 
 namespace Bán_hàng.Areas.Admin.Controllers
 {
 
     [Area("Admin")]
+    [Authorize]
     public class AdminController : Controller
     {
         public string ChuoiKetNoi = @"Data Source=HIEU-PC\SQLEXPRESS;Initial Catalog=BanHang;
         Integrated Security=True";
         private List<SanPham> DataSanPham = new List<SanPham>();
-        [Route("/")]
+
+        [AllowAnonymous]
         public IActionResult ViewLogin()
         {
             return View();
         }
-      
-        public ReponsResult Login(string a, string b)
+
+        [AllowAnonymous, HttpPost]
+        public async Task<ReponsResult> Login(string a, string b)
         {
             if ((a != null) && (b != null))
             {
@@ -47,7 +51,18 @@ namespace Bán_hàng.Areas.Admin.Controllers
                     if (b == Pass)
                     {
 
-                        HttpContext.Session.SetString("Password", Pass);
+                        var claims = new List<Claim>()
+                    {
+                        new Claim(ClaimTypes.Name, a),
+                        new Claim("Password", b),
+                        new Claim(ClaimTypes.Role, "Admin"),
+
+                    };
+
+                        ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "login");
+                        ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+                        await HttpContext.SignInAsync(claimsPrincipal);
+
                         return new ReponsResult(true, "Ok", "Ngon lanh");
                     }
                     else
@@ -75,27 +90,24 @@ namespace Bán_hàng.Areas.Admin.Controllers
 
             return new ReponsResult(false, "Fail", "Sai Thông tin đăng nhập!");
         }
-        [HttpGet]
         public IActionResult Index()
         {
-            if (HttpContext.Session.GetString("Password") != null)
-            {
-                var sql = "select * from SanPham";
+            var sql = "select * from SanPham";
 
-                foreach (DataRow hhrow in Sql.GetDataTable(sql).Rows)
+            foreach (DataRow hhrow in Sql.GetDataTable(sql).Rows)
+            {
+                DataSanPham.Add(new SanPham
                 {
-                    DataSanPham.Add(new SanPham
-                    {
-                        Masp = int.Parse($"{ hhrow["Masp"] }"),
-                        Tensp = $"{ hhrow["Tensp"] }",
-                        Dongia = int.Parse($"{ hhrow["Dongia"] }"),
-                        Soluong = int.Parse($"{ hhrow["Soluong"] }"),
-                        Hinh = $"{ hhrow["Hinh"] }",
-                    });
-                }
-                return View(DataSanPham);
+                    Masp = int.Parse($"{ hhrow["Masp"] }"),
+                    Tensp = $"{ hhrow["Tensp"] }",
+                    Dongia = int.Parse($"{ hhrow["Dongia"] }"),
+                    Soluong = int.Parse($"{ hhrow["Soluong"] }"),
+                    Hinh = $"{ hhrow["Hinh"] }",
+                });
             }
-            return RedirectToAction("ViewLogin");
+            return View(DataSanPham);
+
+
 
         }
         // Thêm sản phẩm
@@ -221,17 +233,19 @@ namespace Bán_hàng.Areas.Admin.Controllers
         public IActionResult ViewDoanhThu()
         {
             var doanhthu = new List<DoanhThu>();
-            string sql = "select masp, dongia,soluong  from doanhthu";
-            foreach(DataRow hhrow in Sql.GetDataTable(sql).Rows)
+            string sql = "select masp, sum(soluong) as soluong from doanhthu group by masp";
+            foreach (DataRow hhrow in Sql.GetDataTable(sql).Rows)
             {
-                string sql2 = $"select tensp from sanpham where masp = '{hhrow["Masp"]}'";
+                string sql2 = $"select tensp, dongia from sanpham where masp = '{hhrow["Masp"]}'";
                 string tensp = $"{Sql.GetDataTable(sql2).Rows[0]["Tensp"]}";
+                int dongia = int.Parse($"{Sql.GetDataTable(sql2).Rows[0]["dongia"]}");
                 doanhthu.Add(new DoanhThu
                 {
                     Tensp = tensp,
-                    Dongia = int.Parse($"{hhrow["dongia"]}"),
+                    Dongia = dongia,
                     Soluong = int.Parse($"{hhrow["soluong"]}"),
-                    TongTien = int.Parse($"{hhrow["dongia"]}")*int.Parse($"{hhrow["soluong"]}")
+                    TongTien = dongia * int.Parse($"{hhrow["soluong"]}")
+
                 });
             }
             return View(doanhthu);
@@ -247,13 +261,14 @@ namespace Bán_hàng.Areas.Admin.Controllers
                 {
                     var Masp = int.Parse($"{ hhrow["MaSP"] }");
                     var Dongia = int.Parse($"{ hhrow["DonGia"] }");
-                    var Sql2 = $"insert into DoanhThu(MaSP,SoLuong,DonGia) values('{Masp}',1,'{Dongia}')";
+                    var Soluong = int.Parse($"{ hhrow["SoLuong"] }");
+                    var Sql2 = $"insert into DoanhThu(MaSP,SoLuong,DonGia) values('{Masp}','{Soluong}','{Dongia}')";
                     SqlConnection Connect2 = new SqlConnection(ChuoiKetNoi);
                     SqlCommand cmd2 = new SqlCommand(Sql2, Connect2);
                     cmd2.Connection.Open();
                     cmd2.ExecuteNonQuery();
                     cmd2.Connection.Close();
-                }             
+                }
             }
             // Xoa HDCT
             var Sql4 = $"delete from HoaDonCT where MaHD = {ID}";

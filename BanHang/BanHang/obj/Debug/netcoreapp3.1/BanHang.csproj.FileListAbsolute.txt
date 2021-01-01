@@ -1235,3 +1235,5 @@ C:\Users\hieu\Desktop\Git\BanHang\BanHang\obj\Debug\netcoreapp3.1\BanHang.genrun
 C:\Users\hieu\Desktop\Git\BanHang\BanHang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Admin\ViewDonDatHang.cshtml.g.cs
 C:\Users\hieu\Desktop\Git\BanHang\BanHang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Admin\ViewDoanhThu.cshtml.g.cs
 C:\Users\hieu\Desktop\Git\BanHang\BanHang\obj\Debug\netcoreapp3.1\BanHang.csprojAssemblyReference.cache
+C:\Users\hieu\Desktop\Git\BanHang\BanHang\obj\Debug\netcoreapp3.1\Razor\Views\KhachHang\Index.cshtml.g.cs
+C:\Users\hieu\Desktop\Git\BanHang\BanHang\obj\Debug\netcoreapp3.1\Razor\Views\KhachHang\ViewDangNhap.cshtml.g.cs

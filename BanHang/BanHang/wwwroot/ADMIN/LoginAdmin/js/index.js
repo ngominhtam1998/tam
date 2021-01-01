@@ -34,8 +34,8 @@ $(document).ready(function () {
             $('.erorrPassword').html("");
         }
         $.ajax({
-            url: 'Admin/Admin/Login',
-            type: 'GET',
+            url: '/Admin/Admin/Login',
+            type: 'POST',
 
             data: {
                 a: val1,

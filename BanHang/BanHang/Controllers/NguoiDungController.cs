@@ -85,35 +85,7 @@ namespace BanHang.Controllers
 
             return PartialView("PartialSanPhamSeach", DataSanPham);
         }
-        //  gio hang 
-        //public List<GioHang> Carts
-        //{
-        //    get
-        //    {
-        //        var value = HttpContext.Session.Get<List<GioHang>>("GioHang");
-        //        if (value == null)
-        //            value = new List<GioHang>();
-        //        return value;
-        //    }
-        //}
-
-        //public IActionResult AddToCart(int id)
-        //{
-        //    var giohang = Carts;
-        //    var hh = giohang.SingleOrDefault(p => p.Masp == id);
-        //    if (hh == null)
-        //    {
-        //        hh = new GioHang { Masp = id, Soluong = 1 };
-        //        giohang.Add(hh);
-        //    }
-        //    else
-        //    {
-        //        hh.Soluong++;
-        //    }
-        //    //update giỏ hàng (session)
-        //    HttpContext.Session.Set("GioHang", giohang);
-        //    return Json(giohang);
-        //}
+        
         public IActionResult Items(int ID)
         {
             //Kiểm tra đã khởi tạo session ?

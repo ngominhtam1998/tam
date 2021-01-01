@@ -42,7 +42,12 @@ namespace BanHang
             });
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(option =>
             {
+                option.Cookie.HttpOnly = true;
+                option.ExpireTimeSpan = TimeSpan.FromMinutes(180);
                 option.LoginPath = "/Admin/Admin/ViewLogin";
+                option.LogoutPath = "/KhachHang/DangXuat";
+                option.AccessDeniedPath = "/Home/AccessDenied";
+
             });
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,7 +72,7 @@ namespace BanHang
 
             app.UseAuthorization();
 
-         
+
             app.UseEndpoints(endpoints =>
             {
 
