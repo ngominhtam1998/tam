@@ -1,0 +1,40 @@
+﻿@model IEnumerable<BanHang.ViewModels.LSGiaoDich>
+
+@{
+    ViewData["Title"] = "LSGiaoDich";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2 class="text-success">Lịch sử giao dịch</h2>
+<table class="table table-striped mb-5">
+    <thead style="background-color:rgba(246, 234, 186, 0.86)">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TenKH)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NgayThanhToan)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TienThanhToan)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenKH)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NgayThanhToan)
+                </td>
+                <td>
+                    @string.Format("{0:n0}", item.TienThanhToan) VND
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>

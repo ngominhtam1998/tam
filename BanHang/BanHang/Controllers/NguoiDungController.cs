@@ -21,26 +21,11 @@ namespace BanHang.Controllers
         public string ChuoiKetNoi = @"Data Source=HIEU-PC\SQLEXPRESS;Initial Catalog=BanHang;
         Integrated Security=True";
         private List<SanPham> DataSanPham = new List<SanPham>();
-       
+
         public IActionResult Index()
         {
 
             var sql = "select * from SanPham";
-
-            //if (Sql.GetDataTable(sql).Rows.Count > 0)
-            //{
-            //    for (int i = 0; i < 4; i++)
-            //    {
-            //        DataSanPham.Add(new SanPham
-            //        {
-            //            Tensp = $"{ Sql.GetDataTable(sql).Rows[i]["Tensp"] }",
-            //            Dongia = int.Parse($"{ Sql.GetDataTable(sql).Rows[i]["Dongia"] }"),
-            //            Hinh = $"{Sql.GetDataTable(sql).Rows[i]["Hinh"] }",
-            //            Soluong = int.Parse($"{ Sql.GetDataTable(sql).Rows[i]["SoLuong"] }")
-            //        });
-            //    }
-
-            //}
             ViewBag.TongSoTrang = Math.Ceiling(1.0 * Sql.GetDataTable(sql).Rows.Count / 4);
             return View(DataSanPham);
         }
@@ -85,9 +70,10 @@ namespace BanHang.Controllers
 
             return PartialView("PartialSanPhamSeach", DataSanPham);
         }
-        
+
         public IActionResult Items(int ID)
         {
+
             //Kiểm tra đã khởi tạo session ?
             if (!String.IsNullOrEmpty(HttpContext.Session.GetString("SessionShoping")))
             {
@@ -114,7 +100,7 @@ namespace BanHang.Controllers
                     // update session sau khi chỉnh sửa
                     HttpContext.Session.SetString("SessionShoping", JsonConvert.SerializeObject(lstSessionShopings));
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     return Content("Lỗi");
                 }
@@ -122,15 +108,22 @@ namespace BanHang.Controllers
             }
             else
             {
-                string sql = $"select Tensp, Dongia, Hinh from SanPham where masp = {ID}";
-                string tensp = $"{Sql.GetDataTable(sql).Rows[0]["Tensp"]}";
-                string Hinh = $"{Sql.GetDataTable(sql).Rows[0]["Hinh"]}";
-                int Dongia = int.Parse($"{Sql.GetDataTable(sql).Rows[0]["Dongia"]}");
-                List<SessionShoping> lstSessionShopings = new List<SessionShoping>();
-                lstSessionShopings.Add(new SessionShoping(ID, tensp, 1, Dongia, Hinh));
+                try
+                {
+                    string sql = $"select Tensp, Dongia, Hinh from SanPham where masp = {ID}";
+                    string tensp = $"{Sql.GetDataTable(sql).Rows[0]["Tensp"]}";
+                    string Hinh = $"{Sql.GetDataTable(sql).Rows[0]["Hinh"]}";
+                    int Dongia = int.Parse($"{Sql.GetDataTable(sql).Rows[0]["Dongia"]}");
+                    List<SessionShoping> lstSessionShopings = new List<SessionShoping>();
+                    lstSessionShopings.Add(new SessionShoping(ID, tensp, 1, Dongia, Hinh));
 
-                //Parse danh sách trên thành chuỗi -> lưu vào session
-                HttpContext.Session.SetString("SessionShoping", JsonConvert.SerializeObject(lstSessionShopings));
+                    //Parse danh sách trên thành chuỗi -> lưu vào session
+                    HttpContext.Session.SetString("SessionShoping", JsonConvert.SerializeObject(lstSessionShopings));
+                }
+                catch (Exception)
+                {
+                    return Content("Lỗi");
+                }
             }
 
             return RedirectToAction("Index");
@@ -139,18 +132,23 @@ namespace BanHang.Controllers
         //View Gio Hang
         public IActionResult Shopping()
         {
-            List<SessionShoping> lstSessionShopings = JsonConvert.DeserializeObject<List<SessionShoping>>(HttpContext.Session.GetString("SessionShoping"));
-            return View(lstSessionShopings);
+            if (HttpContext.Session.GetString("SessionShoping") != null)
+            {
+                List<SessionShoping> lstSessionShopings = JsonConvert.DeserializeObject<List<SessionShoping>>(HttpContext.Session.GetString("SessionShoping"));
+                return View(lstSessionShopings);
+            }
+            List<SessionShoping> lstSessionShoping = new List<SessionShoping>();
+            return View(lstSessionShoping);
         }
         ///////////////////mua////////////
         public IActionResult ViewBuy()
         {
             int TongTien = 0;
             List<SessionShoping> lstSessionShopings = JsonConvert.DeserializeObject<List<SessionShoping>>(HttpContext.Session.GetString("SessionShoping"));
-            foreach(SessionShoping item in lstSessionShopings)
+            foreach (SessionShoping item in lstSessionShopings)
             {
-                TongTien += item.Dongia*item.Soluong;
-            }    
+                TongTien += item.Dongia * item.Soluong;
+            }
             ViewBag.TongTien = TongTien;
             TempData["TongTien"] = ViewBag.TongTien;
             return View();
@@ -181,7 +179,7 @@ namespace BanHang.Controllers
                 string Sql3 = $"select MaHD from HoaDon where MaKH = {MaKH}";
                 var MaHD = int.Parse($"{ Sql.GetDataTable(Sql3).Rows[0]["MaHD"] }");
                 List<SessionShoping> lstSessionShopings = JsonConvert.DeserializeObject<List<SessionShoping>>(HttpContext.Session.GetString("SessionShoping"));
-                foreach(SessionShoping item in lstSessionShopings)
+                foreach (SessionShoping item in lstSessionShopings)
                 {
                     var Sql5 = $"insert into HoaDonCT(MaSP,MaHD,SoLuong,DonGia) values('{item.Masp}','{MaHD}','{item.Soluong}','{item.Dongia}')";
                     SqlCommand cmd5 = new SqlCommand(Sql5, Connect);
@@ -195,7 +193,7 @@ namespace BanHang.Controllers
         // SEACH//
         [HttpPost]
         public IActionResult Search(string Keyword)
-        {   
+        {
             if (!string.IsNullOrEmpty(Keyword))
             {
                 string sql = $"select * from  SanPham where Tensp like N'%{Keyword}%'";

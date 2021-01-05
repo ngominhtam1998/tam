@@ -147,13 +147,15 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="index3.html" class="brand-link">
-                <form>
-                    <img src="~/ADMIN/AdminLTE/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-                         style="opacity: .8">
-                    <button style="background-color:transparent; border:0px;" asp-action="ViewDoanhThu" class="brand-text font-weight-light text-light font-weight-bold"> Doanh Thu</button>
+            <div class="brand-link">
+                <form asp-action="ViewDoanhThu">
+                    <button type="submit" style="background-color:transparent; border:0px;">
+                        <img src="~/ADMIN/AdminLTE/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+                             style="opacity: 0.8">
+                        <span class="brand-text font-weight-light text-light font-weight-bold"> Doanh Thu</span>
+                    </button>
                 </form>
-            </a>
+            </div>
 
             <!-- Sidebar -->
             <div class="sidebar">
@@ -199,9 +201,9 @@
                                 </li>
                                 <li class="nav-item">
                                     <form>
-                                        <button asp-action="ViewDonDatHang" class="nav-link btn-block text-left">
+                                        <button asp-action="LSGiaoDich" class="nav-link btn-block text-left">
                                             <i class="far fa-circle nav-icon"></i>
-                                            <p>Giao Thành Công</p>
+                                            <p>Lịch sử giao dịch</p>
                                         </button>
                                     </form>
                                 </li>

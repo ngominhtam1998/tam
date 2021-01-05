@@ -71,21 +71,6 @@ namespace Bán_hàng.Areas.Admin.Controllers
                     }
 
                 }
-
-
-                //foreach (DataRow hhrow in dtAdmin.Rows)
-                //{
-                //    String Name = $"{ hhrow["AdminName"] }";
-                //    String Pass = $"{ hhrow["Password"] }";
-                //    if (b == Pass)
-                //    {
-                //        return new ReponsResult(true, "Ok", "Ngon lanh");
-                //    }
-                //    else
-                //    {
-                //        return new ReponsResult(false, "Fail", "Sai Thông tin đăng nhập!");
-                //    }
-                //}
             }
 
             return new ReponsResult(false, "Fail", "Sai Thông tin đăng nhập!");
@@ -232,6 +217,8 @@ namespace Bán_hàng.Areas.Admin.Controllers
         //Doanh thu
         public IActionResult ViewDoanhThu()
         {
+            int TongDoanhThu = 0;
+            int i = 0;
             var doanhthu = new List<DoanhThu>();
             string sql = "select masp, sum(soluong) as soluong from doanhthu group by masp";
             foreach (DataRow hhrow in Sql.GetDataTable(sql).Rows)
@@ -244,15 +231,18 @@ namespace Bán_hàng.Areas.Admin.Controllers
                     Tensp = tensp,
                     Dongia = dongia,
                     Soluong = int.Parse($"{hhrow["soluong"]}"),
-                    TongTien = dongia * int.Parse($"{hhrow["soluong"]}")
-
+                    TongTien = dongia * int.Parse($"{hhrow["soluong"]}"),
                 });
+                TongDoanhThu += doanhthu[i].TongTien;
+                i++;
             }
+            ViewBag.TongDoanhThu = TongDoanhThu;
             return View(doanhthu);
         }
 
         public IActionResult DoanhThu(int ID)
         {
+            int tongtien = 0;
             //ADD Doanh Thu
             var _Sql = $"select * from HoaDonCT where MaHD = {ID}";
             foreach (DataRow hhrow in Sql.GetDataTable(_Sql).Rows)
@@ -268,6 +258,22 @@ namespace Bán_hàng.Areas.Admin.Controllers
                     cmd2.Connection.Open();
                     cmd2.ExecuteNonQuery();
                     cmd2.Connection.Close();
+                    tongtien += Soluong * Dongia;
+                }
+            }
+            //ADD Lsgiaodich
+            var Sql5 = $"select tenkh from HoaDon where MaHD = {ID}";
+            foreach (DataRow hhrow in Sql.GetDataTable(Sql5).Rows)
+            {
+                if (Sql.GetDataTable(_Sql).Rows.Count > 0)
+                {
+                    var tenkh = $"{hhrow["TenKh"]}";
+                    var Sql_lsgd = $"insert into LSGiaoDich(TenKH,NgayThanhToan,TongTien) values('{tenkh}','{DateTime.Now.ToString()}','{tongtien}')";
+                    SqlConnection Connect = new SqlConnection(ChuoiKetNoi);
+                    SqlCommand cmd = new SqlCommand(Sql_lsgd, Connect);
+                    cmd.Connection.Open();
+                    cmd.ExecuteNonQuery();
+                    cmd.Connection.Close();
                 }
             }
             // Xoa HDCT
@@ -286,6 +292,24 @@ namespace Bán_hàng.Areas.Admin.Controllers
             cmd3.Connection.Close();
             return RedirectToAction("ViewDonDatHang");
 
+        }
+
+        //Ls Giao Dịch
+        public IActionResult LSGiaoDich()
+        {
+            List<LSGiaoDich> lsgd = new List<LSGiaoDich>();
+            var sql = "select * from LSGiaoDich";
+
+            foreach (DataRow hhrow in Sql.GetDataTable(sql).Rows)
+            {
+                lsgd.Add(new LSGiaoDich
+                {
+                    TenKH = $"{ hhrow["TenKH"] }",
+                    NgayThanhToan = $"{hhrow["NgayThanhToan"] }",
+                    TienThanhToan = int.Parse($"{hhrow["TienThanhToan"] }"),
+                });
+            }
+            return View(lsgd);
         }
     }
 }

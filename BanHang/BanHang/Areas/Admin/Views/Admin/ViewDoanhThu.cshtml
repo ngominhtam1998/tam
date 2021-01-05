@@ -12,8 +12,8 @@
 }
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 <canvas id="pie-chart" width="800" height="450" class="my-5"></canvas>
-<table class="table mb-5">
-    <thead>
+<table class="table table-striped mb-5">
+    <thead style="background-color:rgba(246, 234, 186, 0.86)">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Tensp)
@@ -27,7 +27,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.TongTien)
             </th>
-            <th></th>
+            <th>
+                Doanh Thu %
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -46,10 +48,17 @@
                 <td>
                     @string.Format("{0:n0}", item.TongTien) VND
                 </td>
+                <td>
+                    @string.Format("{0:n3}",(item.TongTien*100.0/ViewBag.TongDoanhThu)) %
+                </td>
             </tr>
         }
     </tbody>
 </table>
+<div class="row form-group ml-3 mr-3">
+    <p class="font-weight-bold form-control col-4 " style="background-color: rgba(215, 241, 238, 0.84)">Tổng doanh thu:</p>
+    <p class="font-weight-bold form-control col-8 text-center" style="background-color: rgba(215, 241, 238, 0.84);"> @string.Format("{0:n0}",ViewBag.TongDoanhThu) VND</p>
+</div>
 <script>
     new Chart(document.getElementById("pie-chart"), {
         type: 'pie',
