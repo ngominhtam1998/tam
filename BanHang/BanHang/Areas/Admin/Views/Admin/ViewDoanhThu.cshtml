@@ -1,9 +1,10 @@
-﻿@model IEnumerable<BanHang.ViewModels.DoanhThu>
+﻿@model IEnumerable<BanHang.ViewModelsAdmin.DoanhThu>
 
 @{
     ViewData["Title"] = "ViewDoanhThu";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
+
 @{
     var dssp = Model.Select(p => p.Tensp).ToList();
     var dsspString = string.Join("\", \"", dssp);
@@ -49,7 +50,7 @@
                     @string.Format("{0:n0}", item.TongTien) VND
                 </td>
                 <td>
-                    @string.Format("{0:n3}",(item.TongTien*100.0/ViewBag.TongDoanhThu)) %
+                    @string.Format("{0:n3}", (item.TongTien * 100.0 / ViewBag.TongDoanhThu)) %
                 </td>
             </tr>
         }
@@ -57,7 +58,7 @@
 </table>
 <div class="row form-group ml-3 mr-3">
     <p class="font-weight-bold form-control col-4 " style="background-color: rgba(215, 241, 238, 0.84)">Tổng doanh thu:</p>
-    <p class="font-weight-bold form-control col-8 text-center" style="background-color: rgba(215, 241, 238, 0.84);"> @string.Format("{0:n0}",ViewBag.TongDoanhThu) VND</p>
+    <p class="font-weight-bold form-control col-8 text-center" style="background-color: rgba(215, 241, 238, 0.84);"> @string.Format("{0:n0}", ViewBag.TongDoanhThu) VND</p>
 </div>
 <script>
     new Chart(document.getElementById("pie-chart"), {

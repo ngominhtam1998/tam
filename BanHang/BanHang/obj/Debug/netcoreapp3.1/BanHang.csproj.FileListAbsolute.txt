@@ -1233,8 +1233,6 @@ C:\Users\hieu\Desktop\Git\BanHang\BanHang\obj\Debug\netcoreapp3.1\BanHang.dll
 C:\Users\hieu\Desktop\Git\BanHang\BanHang\obj\Debug\netcoreapp3.1\BanHang.pdb
 C:\Users\hieu\Desktop\Git\BanHang\BanHang\obj\Debug\netcoreapp3.1\BanHang.genruntimeconfig.cache
 C:\Users\hieu\Desktop\Git\BanHang\BanHang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Admin\ViewDonDatHang.cshtml.g.cs
+C:\Users\hieu\Desktop\Git\BanHang\BanHang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Admin\ViewLSGiaoDich.cshtml.g.cs
 C:\Users\hieu\Desktop\Git\BanHang\BanHang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Admin\ViewDoanhThu.cshtml.g.cs
 C:\Users\hieu\Desktop\Git\BanHang\BanHang\obj\Debug\netcoreapp3.1\BanHang.csprojAssemblyReference.cache
-C:\Users\hieu\Desktop\Git\BanHang\BanHang\obj\Debug\netcoreapp3.1\Razor\Views\KhachHang\Index.cshtml.g.cs
-C:\Users\hieu\Desktop\Git\BanHang\BanHang\obj\Debug\netcoreapp3.1\Razor\Views\KhachHang\ViewDangNhap.cshtml.g.cs
-C:\Users\hieu\Desktop\Git\BanHang\BanHang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Admin\LSGiaoDich.cshtml.g.cs

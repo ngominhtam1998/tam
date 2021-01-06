@@ -35,7 +35,6 @@ namespace BanHang.Controllers
         public IActionResult LoadMore(int page)
         {
             var sql = "select * from SanPham";
-
             if (Sql.GetDataTable(sql).Rows.Count > 0)
             {
                 if ((page * 4) <= Sql.GetDataTable(sql).Rows.Count)
@@ -58,6 +57,7 @@ namespace BanHang.Controllers
                     {
                         DataSanPham.Add(new SanPham
                         {
+                            Masp = int.Parse($"{ Sql.GetDataTable(sql).Rows[i]["Masp"] }"),
                             Tensp = $"{ Sql.GetDataTable(sql).Rows[i]["Tensp"] }",
                             Dongia = int.Parse($"{ Sql.GetDataTable(sql).Rows[i]["Dongia"] }"),
                             Hinh = $"{Sql.GetDataTable(sql).Rows[i]["Hinh"] }",
@@ -70,7 +70,6 @@ namespace BanHang.Controllers
 
             return PartialView("PartialSanPhamSeach", DataSanPham);
         }
-
         public IActionResult Items(int ID)
         {
 
@@ -125,7 +124,7 @@ namespace BanHang.Controllers
                     return Content("Lỗi");
                 }
             }
-
+          
             return RedirectToAction("Index");
         }
 
@@ -212,7 +211,7 @@ namespace BanHang.Controllers
                 }
                 return PartialView("PartialSanPhamSeach", DataSanPham);
             }
-            return RedirectToAction("Index");
+            return Content("fales");
         }
     }
 }

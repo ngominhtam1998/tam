@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Security.Claims;
+using BanHang.ViewModelsAdmin;
 
 namespace Bán_hàng.Areas.Admin.Controllers
 {
@@ -262,20 +263,35 @@ namespace Bán_hàng.Areas.Admin.Controllers
                 }
             }
             //ADD Lsgiaodich
-            var Sql5 = $"select tenkh from HoaDon where MaHD = {ID}";
-            foreach (DataRow hhrow in Sql.GetDataTable(Sql5).Rows)
+            var Sql6 = $"select Masp, soluong from HoaDonCT where MaHD = {ID}";
+            StringBuilder GhiChu = new StringBuilder();
+            string _ghichu = "";
+            for(int i = 0; i < Sql.GetDataTable(Sql6).Rows.Count; i++)
             {
-                if (Sql.GetDataTable(_Sql).Rows.Count > 0)
+                int Masp = int.Parse($"{Sql.GetDataTable(Sql6).Rows[i]["Masp"]}");
+                string SqlGetTensp = $"select tensp from sanpham where Masp = {Masp}";
+                string tensp = $"{Sql.GetDataTable(SqlGetTensp).Rows[0]["Tensp"]}";
+                if(i< Sql.GetDataTable(Sql6).Rows.Count -1)
                 {
-                    var tenkh = $"{hhrow["TenKh"]}";
-                    var Sql_lsgd = $"insert into LSGiaoDich(TenKH,NgayThanhToan,TongTien) values('{tenkh}','{DateTime.Now.ToString()}','{tongtien}')";
-                    SqlConnection Connect = new SqlConnection(ChuoiKetNoi);
-                    SqlCommand cmd = new SqlCommand(Sql_lsgd, Connect);
-                    cmd.Connection.Open();
-                    cmd.ExecuteNonQuery();
-                    cmd.Connection.Close();
+                    _ghichu += ($"{tensp}({Sql.GetDataTable(Sql6).Rows[i]["Soluong"]}),");
+                    //GhiChu.Append($"{tensp}({Sql.GetDataTable(Sql6).Rows[i]["Soluong"]}),");
+                }
+                else
+                {
+                    _ghichu += ($"{tensp}({Sql.GetDataTable(Sql6).Rows[i]["Soluong"]})");
+                    //GhiChu.Append($"{tensp}({Sql.GetDataTable(Sql6).Rows[i]["Soluong"]})");
                 }
             }
+            
+            var Sql5 = $"select tenkh from HoaDon where MaHD = {ID}";
+            var tenkh = $"{Sql.GetDataTable(Sql5).Rows[0]["TenKh"]}";
+            var Sql_lsgd = $"insert into LSGiaoDich(TenKH,NgayThanhToan,GhiChu,TienThanhToan) values('{tenkh}','{DateTime.Now.ToString()}','{_ghichu}','{tongtien}')";
+            SqlConnection Connect = new SqlConnection(ChuoiKetNoi);
+            SqlCommand cmd = new SqlCommand(Sql_lsgd, Connect);
+            cmd.Connection.Open();
+            cmd.ExecuteNonQuery();
+            cmd.Connection.Close();
+
             // Xoa HDCT
             var Sql4 = $"delete from HoaDonCT where MaHD = {ID}";
             SqlConnection Connect4 = new SqlConnection(ChuoiKetNoi);
@@ -295,7 +311,7 @@ namespace Bán_hàng.Areas.Admin.Controllers
         }
 
         //Ls Giao Dịch
-        public IActionResult LSGiaoDich()
+        public IActionResult ViewLSGiaoDich()
         {
             List<LSGiaoDich> lsgd = new List<LSGiaoDich>();
             var sql = "select * from LSGiaoDich";
@@ -306,6 +322,7 @@ namespace Bán_hàng.Areas.Admin.Controllers
                 {
                     TenKH = $"{ hhrow["TenKH"] }",
                     NgayThanhToan = $"{hhrow["NgayThanhToan"] }",
+                    GhiChu = $"{hhrow["GhiChu"] }",
                     TienThanhToan = int.Parse($"{hhrow["TienThanhToan"] }"),
                 });
             }

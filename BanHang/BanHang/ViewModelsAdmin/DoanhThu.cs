@@ -4,11 +4,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BanHang.ViewModels
+namespace BanHang.ViewModelsAdmin
 {
     public class DoanhThu
     {
-        [Display(Name ="Tên sản phẩm")]
+        [Display(Name = "Tên sản phẩm")]
         public string Tensp { get; set; }
         [Display(Name = "Đơn giá")]
         public int Dongia { get; set; }

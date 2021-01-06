@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<Bán_hàng.Areas.Admin.Models.SanPham>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <form>
     <div class="container-fluid abc">
@@ -11,8 +12,9 @@
                         <div class="card-body">
                             <h3 class="card-title">@item.Tensp</h3>
                             <p class="card-text">@item.Dongia đ</p>
+                            <p id="Masp">@item.Masp</p>
                             <button asp-action="ViewBuy" class="btn btn-success btn-block">Mua ngay</button>
-                            <button asp-action="Items" asp-route-ID="@item.Masp" class="btn btn-secondary btn-block">Thêm vào giỏ hàng</button>
+                            <button asp-action="Items" asp-route-ID="@item.Masp" id="AddGioHang" class="btn btn-secondary btn-block">Thêm vào giỏ hàng</button>
                         </div>
                     </div>
                 </div>
@@ -20,3 +22,21 @@
         </div>
     </div>
 </form>
+@*<script>
+    $(document).ready(function () {
+        $("#AddGioHang").click(function () {
+            
+            $.ajax({
+                url: "/NguoiDung/Items",
+                type: "",
+               
+                success: function (data) {
+                    if (data == "True") {
+                        swal("Hello world!");
+                    }
+
+                }
+            });
+        });
+    });
+</script>*@

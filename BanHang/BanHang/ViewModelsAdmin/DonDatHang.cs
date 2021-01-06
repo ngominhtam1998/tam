@@ -4,12 +4,12 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BanHang.ViewModels
+namespace BanHang.ViewModelsAdmin
 {
     public class DonDatHang
     {
         public int MaHD { get; set; }
-        [Display(Name ="Mã khách hàng")]
+        [Display(Name = "Mã khách hàng")]
         public int MaKH { get; set; }
         [Display(Name = "Tên khách hàng")]
         public string TenKH { get; set; }
