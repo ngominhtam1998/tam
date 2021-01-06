@@ -322,7 +322,7 @@ namespace Bán_hàng.Areas.Admin.Controllers
                 {
                     TenKH = $"{ hhrow["TenKH"] }",
                     NgayThanhToan = $"{hhrow["NgayThanhToan"] }",
-                    GhiChu = $"{hhrow["GhiChu"] }",
+                    GhiChu = ($"{hhrow["GhiChu"] }"),
                     TienThanhToan = int.Parse($"{hhrow["TienThanhToan"] }"),
                 });
             }

@@ -5,6 +5,9 @@
     Layout = "~/Views/Shared/_NguoiDungLayout.cshtml";
 }
 <script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<p id="return">@ViewBag.Return</p>
 <div class="container">
     <div class="row">
         <div class="col-4">
@@ -35,8 +38,7 @@
                         Tổng tiền cần thanh toán là:
                         <span class="text-danger font-weight-bold" style="font-size:1.2em">@ViewBag.TongTien đ</span>
                     </p>
-                    <p>@ViewBag.Success</p>
-                    <input id="DatHang" type="submit" value="Đặt hàng" class="btn btn-primary btn-block" />
+                    <button id="DatHang" type="submit" class="btn btn-primary btn-block">Đặt hàng</button>
                 </div>
             </form>
         </div>
@@ -44,8 +46,18 @@
 </div>
 <script>
     $(document).ready(function () {
-        $("#abc").click(function () {
-            $("input").val("");
-        });
+        $("#return").hide();
+        if ($("#return").html() == "True") {
+            swal({
+                title: "Đặt hàng thành công!!!",
+                text: "Trở về trang chủ...",
+                icon: "success",
+                button: "OK",
+            }).then((value) => {
+                if (value == true) {
+                    window.location.href = "https://localhost:44395/NguoiDung/Index";
+                }
+            });
+        }
     });
 </script>

@@ -124,7 +124,7 @@ namespace BanHang.Controllers
                     return Content("Lỗi");
                 }
             }
-          
+
             return RedirectToAction("Index");
         }
 
@@ -172,8 +172,7 @@ namespace BanHang.Controllers
                 cmd2.Connection.Open();
                 cmd2.ExecuteNonQuery();
                 cmd2.Connection.Close();
-                ViewBag.Success = "Dat hang thanh cong!";
-                ViewBag.TongTien = TempData["TongTien"];
+
                 //ADD HoaDonCT
                 string Sql3 = $"select MaHD from HoaDon where MaKH = {MaKH}";
                 var MaHD = int.Parse($"{ Sql.GetDataTable(Sql3).Rows[0]["MaHD"] }");
@@ -186,7 +185,11 @@ namespace BanHang.Controllers
                     cmd5.ExecuteNonQuery();
                     cmd5.Connection.Close();
                 }
+                ViewBag.Success = "Dat hang thanh cong!";
+                ViewBag.Return = "True";
+                ViewBag.TongTien = TempData["TongTien"];
             }
+
             return View("ViewBuy");
         }
         // SEACH//
