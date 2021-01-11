@@ -1,0 +1,43 @@
+﻿@model BanHang.Models.TaiKhoanKhachHang
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ViewLogin</title>
+</head>
+<body  style="background-color: rgba(246, 230, 176, 0.66)">
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-4">
+                <form asp-action="Login">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Username" class="control-label"></label>
+                        <input asp-for="Username" class="form-control" />
+                        <span asp-validation-for="Username" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Password" class="control-label"></label>
+                        <input asp-for="Password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Đăng nhập" class="btn btn-primary btn-block" />
+                    </div>
+                </form>
+                <div>
+                    <a asp-action="Index">Trở về trang chủ</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

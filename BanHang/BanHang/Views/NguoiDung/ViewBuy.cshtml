@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Đặt hàng";
-    Layout = "~/Views/Shared/_NguoiDungLayout.cshtml";
+    Layout = "~/Views/Shared/_LayoutNguoiDung.cshtml";
 }
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -36,7 +36,7 @@
                 <div class="form-group">
                     <p class="text-success my-2">
                         Tổng tiền cần thanh toán là:
-                        <span class="text-danger font-weight-bold" style="font-size:1.2em">@ViewBag.TongTien đ</span>
+                        <span class="text-danger font-weight-bold" style="font-size:1.2em">@string.Format("{0:n0}",ViewBag.TongTien) đ</span>
                     </p>
                     <button id="DatHang" type="submit" class="btn btn-primary btn-block">Đặt hàng</button>
                 </div>

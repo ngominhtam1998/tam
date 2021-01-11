@@ -11,8 +11,8 @@
                         <img class="card-img-top" src="~/ADMIN/Images/@item.Hinh" />
                         <div class="card-body">
                             <h3 class="card-title">@item.Tensp</h3>
-                            <p class="card-text">@item.Dongia đ</p>
-                            <p id="Masp">@item.Masp</p>
+                            <p class="card-text text-success">@string.Format("{0:n0}",item.Dongia) đ</p>
+                            <p id="Masp">Số lượng còn: @item.Soluong</p>
                             <button asp-action="ViewBuy" class="btn btn-success btn-block">Mua ngay</button>
                             <button asp-action="Items" asp-route-ID="@item.Masp" id="AddGioHang" class="btn btn-secondary btn-block">Thêm vào giỏ hàng</button>
                         </div>

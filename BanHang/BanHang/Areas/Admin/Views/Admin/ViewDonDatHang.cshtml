@@ -4,8 +4,8 @@
     ViewData["Title"] = "ViewDonDatHang";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
-
-<table class="table">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<table class="table table-striped">
     <thead>
         <tr>
             <th>
@@ -24,32 +24,35 @@
                 @Html.DisplayNameFor(model => model.NgayDatHang)
             </th>
             <th></th>
+        
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.MaKH)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TenKH)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DiaChi)
-            </td>
-            <td>
-                <span>0</span>@Html.DisplayFor(modelItem => item.SDT)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NgayDatHang)
-            </td>
-            <td>
-                <form>
-                    <button class="btn btn-success" asp-action="DoanhThu" asp-route-ID="@item.MaHD">Đã thanh toán</button>
-                </form>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaKH)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenKH)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DiaChi)
+                </td>
+                <td>
+                    <span>0</span>@Html.DisplayFor(modelItem => item.SDT)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NgayDatHang)
+                </td>
+                <td>
+                    <form>
+                        <button class="btn btn-success mb-2" asp-action="DoanhThu" asp-route-ID="@item.MaHD">Đã thanh toán</button>
+                        <button style="padding-left: 46px; padding-right:46px" id="delete" class="btn btn-danger" asp-action="ViewDonDatHang" asp-route-ID="@item.MaHD">Hủy</button>
+                    </form>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

@@ -22,6 +22,10 @@ namespace BanHang.Controllers
         Integrated Security=True";
         private List<SanPham> DataSanPham = new List<SanPham>();
 
+        public IActionResult ViewLogin()
+        {
+            return View();
+        }
         public IActionResult Index()
         {
 
@@ -72,7 +76,6 @@ namespace BanHang.Controllers
         }
         public IActionResult Items(int ID)
         {
-
             //Kiểm tra đã khởi tạo session ?
             if (!String.IsNullOrEmpty(HttpContext.Session.GetString("SessionShoping")))
             {
@@ -129,11 +132,18 @@ namespace BanHang.Controllers
         }
 
         //View Gio Hang
-        public IActionResult Shopping()
+        public IActionResult Shopping(int? ID)
         {
+
             if (HttpContext.Session.GetString("SessionShoping") != null)
             {
                 List<SessionShoping> lstSessionShopings = JsonConvert.DeserializeObject<List<SessionShoping>>(HttpContext.Session.GetString("SessionShoping"));
+                if (ID.HasValue)
+                {
+                    var delete = lstSessionShopings.SingleOrDefault(p => p.Masp == ID);
+                    lstSessionShopings.Remove(delete);
+                    HttpContext.Session.SetString("SessionShoping", JsonConvert.SerializeObject(lstSessionShopings));
+                }
                 return View(lstSessionShopings);
             }
             List<SessionShoping> lstSessionShoping = new List<SessionShoping>();
@@ -173,12 +183,21 @@ namespace BanHang.Controllers
                 cmd2.ExecuteNonQuery();
                 cmd2.Connection.Close();
 
-                //ADD HoaDonCT
+                //ADD HoaDonCT va trừ soluong tồn kho
                 string Sql3 = $"select MaHD from HoaDon where MaKH = {MaKH}";
                 var MaHD = int.Parse($"{ Sql.GetDataTable(Sql3).Rows[0]["MaHD"] }");
+                
                 List<SessionShoping> lstSessionShopings = JsonConvert.DeserializeObject<List<SessionShoping>>(HttpContext.Session.GetString("SessionShoping"));
                 foreach (SessionShoping item in lstSessionShopings)
                 {
+                    string Sql4 = $"select soluong from sanpham where masp = {item.Masp}";
+                    var soluongtonkho = int.Parse($"{Sql.GetDataTable(Sql4).Rows[0]["Soluong"]}");
+                    var updatesoluong = soluongtonkho - item.Soluong;
+                    string SqlUpdateSoluong = $"update sanpham set soluong = {updatesoluong} where masp = {item.Masp}";
+                    SqlCommand cmd3 = new SqlCommand(SqlUpdateSoluong, Connect);
+                    cmd3.Connection.Open();
+                    cmd3.ExecuteNonQuery();
+                    cmd3.Connection.Close();
                     var Sql5 = $"insert into HoaDonCT(MaSP,MaHD,SoLuong,DonGia) values('{item.Masp}','{MaHD}','{item.Soluong}','{item.Dongia}')";
                     SqlCommand cmd5 = new SqlCommand(Sql5, Connect);
                     cmd5.Connection.Open();

@@ -2,10 +2,10 @@
 
 @{
     ViewData["Title"] = "Trang chu";
-    Layout = "~/Views/Shared/_NguoiDungLayout.cshtml";
+    Layout = "~/Views/Shared/_LayoutNguoiDung.cshtml";
 }
 
-<h1 class="text-center text-success">Giỏ hàng của bạn</h1>
+<h2 style="min-height:150px" class="text-success">Giỏ hàng của bạn:</h2>
 <form>
     <div class="container-fluid abc">
         <div class="row abc">
@@ -17,13 +17,24 @@
                         <div class="card-body">
                             <h3 class="card-title">@item.Tensp</h3>
                             <p class="card-text">@item.Dongia đ</p>
-                            <p class="card-text">@item.Soluong</p>
+                            <p class="card-text">Số lượng: @item.Soluong</p>
+                            <button class="btn btn-danger btn-block" asp-action="Shopping" asp-route-ID="@item.Masp">Xóa khỏi danh sách</button>
                         </div>
                     </div>
                 </div>
             }
         </div>
-        <button asp-action="ViewBuy"  class="btn btn-success btn-block my-5">Đặt hàng</button>
+        <button asp-action="ViewBuy" id="DatHang"  class="btn btn-success btn-block my-5">Đặt hàng</button>
     </div>
 </form>
+<script>
+    $(document).ready(function () {
+        if ($(".card-title").html() == null) {
+            $("#DatHang").hide();
+        }
+        else {
+            $("#DatHang").show();
+        }
+    });
+</script>
 

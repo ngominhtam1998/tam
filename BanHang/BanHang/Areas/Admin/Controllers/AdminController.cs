@@ -195,9 +195,26 @@ namespace Bán_hàng.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
-        //Don dat hang
-        public IActionResult ViewDonDatHang()
+        //Don dat hang, Hủy đơn đặt hàng
+        public IActionResult ViewDonDatHang(int? ID)
         {
+            if (ID.HasValue)
+            {
+                // Xoa HDCT
+                var Sql4 = $"delete from HoaDonCT where MaHD = {ID}";
+                SqlConnection Connect4 = new SqlConnection(ChuoiKetNoi);
+                SqlCommand cmd4 = new SqlCommand(Sql4, Connect4);
+                cmd4.Connection.Open();
+                cmd4.ExecuteNonQuery();
+                cmd4.Connection.Close();
+                //Xoa Hoa Don 
+                var Sql3 = $"delete from HoaDon where MaHD = {ID}";
+                SqlConnection Connect3 = new SqlConnection(ChuoiKetNoi);
+                SqlCommand cmd3 = new SqlCommand(Sql3, Connect3);
+                cmd3.Connection.Open();
+                cmd3.ExecuteNonQuery();
+                cmd3.Connection.Close();
+            }
             List<DonDatHang> donDatHang = new List<DonDatHang>();
             var sql = "select * from HoaDon";
 
@@ -213,6 +230,7 @@ namespace Bán_hàng.Areas.Admin.Controllers
                     NgayDatHang = $"{hhrow["NgayDatHang"] }",
                 });
             }
+
             return View(donDatHang);
         }
         //Doanh thu
@@ -266,12 +284,12 @@ namespace Bán_hàng.Areas.Admin.Controllers
             var Sql6 = $"select Masp, soluong from HoaDonCT where MaHD = {ID}";
             StringBuilder GhiChu = new StringBuilder();
             string _ghichu = "";
-            for(int i = 0; i < Sql.GetDataTable(Sql6).Rows.Count; i++)
+            for (int i = 0; i < Sql.GetDataTable(Sql6).Rows.Count; i++)
             {
                 int Masp = int.Parse($"{Sql.GetDataTable(Sql6).Rows[i]["Masp"]}");
                 string SqlGetTensp = $"select tensp from sanpham where Masp = {Masp}";
                 string tensp = $"{Sql.GetDataTable(SqlGetTensp).Rows[0]["Tensp"]}";
-                if(i< Sql.GetDataTable(Sql6).Rows.Count -1)
+                if (i < Sql.GetDataTable(Sql6).Rows.Count - 1)
                 {
                     _ghichu += ($"{tensp}({Sql.GetDataTable(Sql6).Rows[i]["Soluong"]}),");
                     //GhiChu.Append($"{tensp}({Sql.GetDataTable(Sql6).Rows[i]["Soluong"]}),");
@@ -282,7 +300,7 @@ namespace Bán_hàng.Areas.Admin.Controllers
                     //GhiChu.Append($"{tensp}({Sql.GetDataTable(Sql6).Rows[i]["Soluong"]})");
                 }
             }
-            
+
             var Sql5 = $"select tenkh from HoaDon where MaHD = {ID}";
             var tenkh = $"{Sql.GetDataTable(Sql5).Rows[0]["TenKh"]}";
             var Sql_lsgd = $"insert into LSGiaoDich(TenKH,NgayThanhToan,GhiChu,TienThanhToan) values('{tenkh}','{DateTime.Now.ToString()}','{_ghichu}','{tongtien}')";
