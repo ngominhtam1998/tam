@@ -8,7 +8,7 @@ namespace Bán_hàng.Areas.Admin.Models
 {
     public class SanPham
     {
-        [Display(Name = "Mã sản phẩm")]
+        [Display(Name = "Mã")]
         public int Masp { get; set; }
         [Display(Name = "Tên sản phẩm")]
         [Required(ErrorMessage ="chua nhap ten san pham")]

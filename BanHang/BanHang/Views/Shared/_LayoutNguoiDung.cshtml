@@ -53,67 +53,14 @@
                                 </div>
                                 <div class="top_bar_user">
                                     <div class="user_icon"><img src="~/OneTech/images/user.svg" alt=""></div>
-                                    <div><a href="~/OneTech/#">Register</a></div>
-                                    <div><a href="~/OneTech/#">Sign in</a></div>
+                                    <div><a asp-action="ViewDangKy">Đăng ký</a></div>
+                                    <div><a asp-action="ViewLogin">Đăng nhập</a></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Header Main -->
-
-            <div class="">
-                <div class="container">
-                    <div class="row">
-
-                        <!-- Logo -->
-                        <div class="col-lg-2 col-sm-3 col-3 order-1">
-                            <div class="mt-5">
-                                <div class="logo"><a href="~/OneTech/#">OneTech</a></div>
-                            </div>
-                        </div>
-
-                        <!-- Search -->
-                        <div class="col-lg-6 col-12 order-lg-2 order-3 text-lg-left text-right">
-                            <div class="mt-5">
-                                <div class="header_search_content">
-                                    <div class="header_search_form_container">
-                                        <form action="#" class="header_search_form clearfix">
-                                            <input type="search" required="required" class="header_search_input" placeholder="Search for products...">
-                                            <div class="custom_dropdown">
-                                                <div class="custom_dropdown_list">
-                                                    <span class="custom_dropdown_placeholder clc">All Categories</span>
-                                                    <i class="fas fa-chevron-down"></i>
-                                                    <ul class="custom_list clc">
-                                                        <li><a class="clc" href="~/OneTech/#">All Categories</a></li>
-                                                        <li><a class="clc" href="~/OneTech/#">Computers</a></li>
-                                                        <li><a class="clc" href="~/OneTech/#">Laptops</a></li>
-                                                        <li><a class="clc" href="~/OneTech/#">Cameras</a></li>
-                                                        <li><a class="clc" href="~/OneTech/#">Hardware</a></li>
-                                                        <li><a class="clc" href="~/OneTech/#">Smartphones</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <button type="submit" class="header_search_button trans_300" value="Submit"><img src="~/OneTech/images/search.png" alt=""></button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Wishlist -->
-                        
-                    </div>
-                </div>
-            </div>
-
-            <!-- Main Navigation -->
-
-            
-
-            <!-- Menu -->
 
             <div class="page_menu">
                 <div class="container">
@@ -200,7 +147,7 @@
             </div>
 
         </header>
-        <div class="container-fluid">
+        <div class="container-fluid my-4" style="min-height:400px">
             @RenderBody()
         </div>
 

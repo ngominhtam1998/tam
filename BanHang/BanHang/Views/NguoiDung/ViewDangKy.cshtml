@@ -10,30 +10,31 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Đăng nhập</title>
+    <title>Đăng ký</title>
 </head>
 <body>
-    <h2 class="text-center text-success">Đăng nhập tài khoản</h2>
+    <h2 class="text-center text-success">Đăng ký tài khoản</h2>
     <div class="container">
         <div class="row justify-content-center mt-3">
             <div class="col-md-4">
-                <form asp-action="Login">
+                <form asp-action="DangKy">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
                         <label asp-for="Username" class="control-label"></label>
                         <input id="input1" name="Username" asp-for="Username" class="form-control" />
                         <span asp-validation-for="Username" class="text-danger"></span>
-                        <p class="erorrUsername thongbao"></p>
+                        <p class="erorrUsername thongbao text-danger"></p>
                     </div>
                     <div class="form-group">
                         <label asp-for="Password" class="control-label"></label>
                         <input id="input2" name="Password" asp-for="Password" class="form-control" />
                         <span asp-validation-for="Password" class="text-danger"></span>
-                        <p class="erorrPassword thongbao"></p>
+                        <p class="erorrPassword thongbao text-danger"></p>
+                        <p class="thongbao text-danger">@ViewBag.Thongbao</p>
                     </div>
-                    <p class="thongbao">@ViewBag.Thongbao</p>
+                  
                     <div class="form-group">
-                        <input id="BtnLogin" type="submit" value="Đăng nhập" class="btn btn-primary btn-block" />
+                        <input id="BtnLogin" type="submit" value="Đăng ký" class="btn btn-primary btn-block" />
                     </div>
                 </form>
                 <div>

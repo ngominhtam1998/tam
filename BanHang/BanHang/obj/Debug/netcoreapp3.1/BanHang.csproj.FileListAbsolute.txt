@@ -1236,5 +1236,6 @@ C:\Users\hieu\Desktop\Git\BanHang\BanHang\obj\Debug\netcoreapp3.1\Razor\Areas\Ad
 C:\Users\hieu\Desktop\Git\BanHang\BanHang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Admin\ViewDoanhThu.cshtml.g.cs
 C:\Users\hieu\Desktop\Git\BanHang\BanHang\obj\Debug\netcoreapp3.1\BanHang.csprojAssemblyReference.cache
 C:\Users\hieu\Desktop\Git\BanHang\BanHang\obj\Debug\netcoreapp3.1\Razor\Views\NguoiDung\ViewLogin.cshtml.g.cs
-C:\Users\hieu\Desktop\Git\BanHang\BanHang\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout2.cshtml.g.cs
 C:\Users\hieu\Desktop\Git\BanHang\BanHang\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LayoutNguoiDung.cshtml.g.cs
+C:\Users\hieu\Desktop\Git\BanHang\BanHang\obj\Debug\netcoreapp3.1\Razor\Views\NguoiDung\ViewDangKy.cshtml.g.cs
+C:\Users\hieu\Desktop\Git\BanHang\BanHang\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Admin\PartialViewSanPhamAdmin.cshtml.g.cs

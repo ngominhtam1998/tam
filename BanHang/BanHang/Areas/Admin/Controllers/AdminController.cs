@@ -38,17 +38,15 @@ namespace Bán_hàng.Areas.Admin.Controllers
         {
             if ((a != null) && (b != null))
             {
-                SqlConnection Connection = new SqlConnection(ChuoiKetNoi);
+
                 string sql = $"select * from Admin where AdminName = '{a}' ";
-                SqlDataAdapter da = new SqlDataAdapter(sql, Connection);
-                DataTable dtAdmin = new DataTable();
-                da.Fill(dtAdmin);
+
 
                 //xu ly
-                if (dtAdmin.Rows.Count > 0)
+                if (Sql.GetDataTable(sql).Rows.Count > 0)
                 {
-                    String Name = $"{dtAdmin.Rows[0]["AdminName"]}";
-                    String Pass = $"{dtAdmin.Rows[0]["Password"]}";
+                    String Name = $"{Sql.GetDataTable(sql).Rows[0]["AdminName"]}";
+                    String Pass = $"{Sql.GetDataTable(sql).Rows[0]["Password"]}";
                     if (b == Pass)
                     {
 
@@ -78,9 +76,10 @@ namespace Bán_hàng.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            var sql = "select * from SanPham";
+            
+            var sql1 = "select * from SanPham";
 
-            foreach (DataRow hhrow in Sql.GetDataTable(sql).Rows)
+            foreach (DataRow hhrow in Sql.GetDataTable(sql1).Rows)
             {
                 DataSanPham.Add(new SanPham
                 {
@@ -91,11 +90,47 @@ namespace Bán_hàng.Areas.Admin.Controllers
                     Hinh = $"{ hhrow["Hinh"] }",
                 });
             }
+
             return View(DataSanPham);
-
-
-
         }
+        #region Search sản phẩm
+        [HttpPost]
+        public IActionResult Search(string Keyword)
+        {
+            if (!string.IsNullOrEmpty(Keyword))
+            {
+                string sql = $"select * from  SanPham where Tensp like N'%{Keyword}%'";
+
+                foreach (DataRow hhrow in Sql.GetDataTable(sql).Rows)
+                {
+                    DataSanPham.Add(new SanPham
+                    {
+                        Masp = int.Parse($"{ hhrow["Masp"] }"),
+                        Tensp = $"{ hhrow["Tensp"] }",
+                        Dongia = int.Parse($"{ hhrow["Dongia"] }"),
+                        Soluong = int.Parse($"{ hhrow["Soluong"] }"),
+                        Hinh = $"{ hhrow["Hinh"] }",
+                    });
+
+                }
+                return PartialView("PartialViewSanPhamAdmin",DataSanPham);
+            }
+            var sql1 = "select * from SanPham";
+
+            foreach (DataRow hhrow in Sql.GetDataTable(sql1).Rows)
+            {
+                DataSanPham.Add(new SanPham
+                {
+                    Masp = int.Parse($"{ hhrow["Masp"] }"),
+                    Tensp = $"{ hhrow["Tensp"] }",
+                    Dongia = int.Parse($"{ hhrow["Dongia"] }"),
+                    Soluong = int.Parse($"{ hhrow["Soluong"] }"),
+                    Hinh = $"{ hhrow["Hinh"] }",
+                });
+            }
+            return PartialView("PartialViewSanPhamAdmin",DataSanPham);
+        }
+        #endregion
         // Thêm sản phẩm
         public IActionResult ViewCreate()
         {

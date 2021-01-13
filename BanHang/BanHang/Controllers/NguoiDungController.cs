@@ -5,11 +5,13 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Bán_hàng.Areas.Admin.Models;
 using BanHang.Models;
 using BanHang.ViewModels;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -21,11 +23,6 @@ namespace BanHang.Controllers
         public string ChuoiKetNoi = @"Data Source=HIEU-PC\SQLEXPRESS;Initial Catalog=BanHang;
         Integrated Security=True";
         private List<SanPham> DataSanPham = new List<SanPham>();
-
-        public IActionResult ViewLogin()
-        {
-            return View();
-        }
         public IActionResult Index()
         {
 
@@ -33,6 +30,61 @@ namespace BanHang.Controllers
             ViewBag.TongSoTrang = Math.Ceiling(1.0 * Sql.GetDataTable(sql).Rows.Count / 4);
             return View(DataSanPham);
         }
+        // login nguoi dung
+        public IActionResult ViewLogin()
+        {
+            return View();
+        }
+
+        //dang ki nguoi dung
+        public async Task<IActionResult> Login(string Username, string Password)
+        {
+            if ((Username != null) && (Password != null))
+            {
+                string sql = $"select * from Account where UserName = '{Username}' ";
+                if (Sql.GetDataTable(sql).Rows.Count > 0)
+                {
+                    String Name = $"{Sql.GetDataTable(sql).Rows[0]["UserName"]}";
+                    String Pass = $"{Sql.GetDataTable(sql).Rows[0]["Password"]}";
+                    if (Password == Pass)
+                    {
+
+                        var claims = new List<Claim>()
+                    {
+                        new Claim(ClaimTypes.Name, Username),
+                        new Claim("Password", Password),
+                        new Claim(ClaimTypes.Role, "User")
+
+                    };
+
+                        ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "login");
+                        ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+                        await HttpContext.SignInAsync(claimsPrincipal);
+
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        ViewBag.Thongbao = "Sai thông tin đăng nhập!";
+                        return View("ViewLogin");
+                    }
+
+                }
+                else
+                {
+                    ViewBag.Thongbao = "Sai thông tin đăng nhập!";
+                    return View("ViewLogin");
+                }
+              
+            }
+
+            return View("ViewLogin");
+        }
+        public IActionResult ViewDangKy()
+        {
+            return View();
+        }
+      
 
         // TaiThem
         [HttpPost]
@@ -233,7 +285,7 @@ namespace BanHang.Controllers
                 }
                 return PartialView("PartialSanPhamSeach", DataSanPham);
             }
-            return Content("fales");
+            return Content("false");
         }
     }
 }
