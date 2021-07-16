@@ -28,7 +28,7 @@ class App extends Component {
 
 	closeForm() {
 		this.setState({
-            isShowForm : false,
+            isShowForm : false
         });
 	}
 
