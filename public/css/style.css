@@ -1,0 +1,19 @@
+div.container {
+    background-color: azure;
+    margin-top: 10px;
+}
+
+div.row {
+    margin-top: 20px;
+}
+
+h2.Lesson-list {
+    color: chocolate;
+}
+
+li {
+    color: red;
+    font-weight: 400;
+}
+
+
